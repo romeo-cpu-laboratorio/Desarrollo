@@ -198,7 +198,7 @@
       transform: translateX(-50%);
       background: var(--letter-clr-bg);
       z-index: 2;
-      padding: 2em 3em;
+      padding: 2em 3em 1em 3em; /* menos padding abajo para ganar espacio */
       display: flex;
       flex-direction: column;
       gap: 1rem;
@@ -210,11 +210,10 @@
       user-select: none;
     }
 
-    /* Aquí está la estrella ajustada */
     .letter span {
       font-size: clamp(2rem, 5vw, 2.5rem);
       display: block;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.1rem; /* más pegado al texto */
       user-select: none;
       color: #d94c45;
       text-shadow: 0 0 4px rgba(217, 76, 69, 0.7);
@@ -222,6 +221,7 @@
 
     .letter p {
       margin: 0;
+      padding-top: 0;
       font-weight: 600;
       width: 100%;
       color: #9b2b26;
@@ -242,15 +242,15 @@
 
     @media (max-width: 480px) {
       .letter {
-        padding: 1em;
+        padding: 1em 1em 0.5em 1em;
         font-size: 0.85rem;
-      }
-      .letter span {
-        font-size: 1.6rem;
-        margin-bottom: 0.2rem;
       }
       .envelope-front .address {
         font-size: 1.2rem;
+      }
+      .letter span {
+        font-size: 2rem;
+        margin-bottom: 0.1rem;
       }
     }
   </style>
@@ -311,4 +311,5 @@
   </script>
 </body>
 </html>
+
 
