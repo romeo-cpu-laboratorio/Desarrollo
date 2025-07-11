@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Para tí Nao</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Kaushan+Script&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Quicksand", sans-serif;
+      background: linear-gradient(to bottom right, #ffecec, #fff5f5, #ffebeb);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 1rem;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    .envelope {
+      --duration: 1000ms;
+      --envelope-width: clamp(250px, 90vw, 600px);
+      --envelope-height: calc(var(--envelope-width) * 0.58);
+      --envelope-clr-bg: #d14d44;
+      --envelope-clr-bg-side: #c24e46;
+      --envelope-clr-bg-bottom: #e15349;
+      --envelope-clr-bg-top: #d14d44;
+      --envelope-clr-txt: #fff;
+      --envelope-transform: rotateY(0deg);
+      --envelope-transform-hover: rotateY(180deg);
+      --shadow-width: 85%;
+      --shadow-blur: 15px;
+      --letter-clr-bg: #fff;
+      --letter-clr-text: #c0392b;
+      --letter-font-size: 1rem;
+      --letter-delay: 0ms;
+      --letter-delay-hover: calc(var(--duration) * 1.25);
+      --letter-height: calc(var(--envelope-height) - 2rem);
+      --letter-height-hover: calc(var(--envelope-height) * 1.75);
+      --fold-rotate: rotateX(0deg);
+      --fold-zindex-hover: 0;
+      --fold-rotate-hover: rotateX(180deg);
+      --fold-delay: calc(var(--duration) / 2);
+      --fold-delay-hover: calc(var(--duration) * 0.75);
+      --front-font-size: 1rem;
+
+      position: relative;
+      height: var(--envelope-height);
+      width: var(--envelope-width);
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    /* Hover en desktop: abrir sobre */
+    @media (hover: hover) and (pointer: fine) {
+      .envelope:hover {
+        --envelope-transform: var(--envelope-transform-hover);
+        --shadow-transform: rotateY(180deg);
+        --fold-rotate: var(--fold-rotate-hover);
+        --fold-delay: var(--fold-delay-hover);
+        --fold-zindex: var(--fold-zindex-hover);
+        --letter-height: var(--letter-height-hover);
+        --letter-delay: var(--letter-delay-hover);
+      }
+
+      /* Quitar toggle en hover para no conflicto */
+      .envelope.flipped {
+        --envelope-transform: var(--envelope-transform);
+        --shadow-transform: none;
+        --fold-rotate: rotateX(0deg);
+        --letter-height: calc(var(--envelope-height) - 2rem);
+        --letter-delay: 0ms;
+      }
+    }
+
+    /* En móvil, abrir/ cerrar con toggle clase flipped */
+    .envelope.flipped {
+      --envelope-transform: var(--envelope-transform-hover);
+      --shadow-transform: rotateY(180deg);
+      --fold-rotate: var(--fold-rotate-hover);
+      --fold-delay: var(--fold-delay-hover);
+      --fold-zindex: var(--fold-zindex-hover);
+      --letter-height: var(--letter-height-hover);
+      --letter-delay: var(--letter-delay-hover);
+    }
+
+    .envelope::after {
+      content: "";
+      position: absolute;
+      top: 110%;
+      left: 50%;
+      width: var(--shadow-width);
+      height: 40px;
+      transition: var(--duration) ease-in-out;
+      transition-delay: var(--evelope-rotate-delay, 0ms);
+      transform: var(--shadow-transform, none);
+      translate: -50% 0;
+      border-radius: 50%;
+      background: rgba(56, 6, 6, 0.4);
+      filter: blur(var(--shadow-blur));
+    }
+
+    .envelope-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: var(--duration) ease-in-out;
+      transition-delay: var(--evelope-rotate-delay, 0ms);
+      transform-style: preserve-3d;
+      transform: var(--envelope-transform);
+      display: grid;
+    }
+
+    .envelope-front,
+    .envelope-back {
+      position: relative;
+      grid-area: 1 / 1;
+      width: 100%;
+      height: 100%;
+      background-color: var(--envelope-clr-bg);
+      backface-visibility: hidden;
+      perspective: 1000px;
+      isolation: isolate;
+    }
+
+    .envelope-front {
+      color: var(--envelope-clr-txt);
+      display: grid;
+      place-content: center;
+    }
+
+    .envelope-front .postage-stamp {
+      position: absolute;
+      top: 1em;
+      right: 0.5em;
+      font-size: 2rem;
+      user-select: none;
+    }
+
+    .envelope-front .address {
+      text-align: left;
+      font-family: 'Kaushan Script', cursive;
+      font-size: 1.5rem;
+      color: #9b2b26; /* rojo oscuro */
+      user-select: none;
+      font-weight: 600;
+      text-shadow: 0 0 2px rgba(0,0,0,0.1);
+      padding-left: 1.2rem;
+      padding-top: 0.8rem;
+      line-height: 1.3;
+    }
+
+    .envelope-back {
+      transform: rotateY(180deg);
+    }
+
+    .envelope-back::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      background-image: conic-gradient(
+        transparent 60deg,
+        var(--envelope-clr-bg-side) 60deg 120deg,
+        var(--envelope-clr-bg-bottom) 120deg 240deg,
+        var(--envelope-clr-bg-side) 240deg 300deg,
+        transparent 300deg
+      );
+    }
+
+    .envelope-back .top-fold {
+      position: absolute;
+      inset: 0;
+      z-index: var(--fold-zindex, 10);
+      background-color: var(--envelope-clr-bg-top);
+      clip-path: polygon(0% 0%, 50% 55%, 100% 0%);
+      transform: var(--fold-rotate);
+      transform-origin: top;
+      transition: var(--duration) ease-in-out;
+      transition-delay: var(--fold-delay);
+    }
+
+    .letter {
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      width: 90%;
+      height: var(--letter-height);
+      font-size: var(--letter-font-size);
+      transform: translateX(-50%);
+      background: var(--letter-clr-bg);
+      z-index: 2;
+      padding: 2em 3em;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      text-align: center;
+      transition: var(--duration) ease-in-out;
+      transition-delay: var(--letter-delay);
+      overflow: auto;
+      user-select: none;
+    }
+
+    .letter span {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.5rem;
+      user-select: none;
+      color: #d94c45;
+      text-shadow: 0 0 4px rgba(217, 76, 69, 0.7);
+    }
+
+    .letter p {
+      margin: 0;
+      font-weight: 600;
+      width: 100%;
+      color: #9b2b26;
+      font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+      line-height: 1.5;
+      white-space: normal;
+      font-family: 'Kaushan Script', cursive;
+      text-shadow: 0 0 2px rgba(0,0,0,0.1);
+    }
+
+    .custom-image2 {
+      width: 60%;
+      max-width: 150px;
+      height: auto;
+      object-fit: contain;
+      user-select: none;
+    }
+
+    @media (max-width: 480px) {
+      .letter {
+        padding: 1em;
+        font-size: 0.85rem;
+        height: auto;
+        max-height: 70vh;
+        overflow-y: auto;
+      }
+      .envelope-front .postage-stamp {
+        font-size: 1.5rem;
+        top: 0.8em;
+        right: 0.5em;
+      }
+      .envelope-front .address {
+        font-size: 1.2rem;
+        padding-left: 1rem;
+        padding-top: 0.6rem;
+      }
+      .custom-image2 {
+        width: 100%;
+        max-width: 140px;
+        height: auto;
+        object-fit: contain;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="envelope" tabindex="0" role="button" aria-pressed="false" aria-label="Abrir carta">
+    <div class="envelope-inner">
+      <div class="envelope-front">
+        <div class="postage-stamp">✨</div>
+        <div class="address">
+          <p><span>Para:</span> <span>Naoo</span></p>
+          <p><span>De:</span> <span>R. S.</span></p>
+        </div>
+      </div>
+      <div class="envelope-back">
+        <div class="top-fold"></div>
+        <div class="letter">
+          <span>✨</span>
+          <p>
+            Ya es viernes Nao y seguro ya hiciste más de lo que te das crédito. Ojalá este día te regale algo simple pero bonito…. como esas cosas que a veces solo notan los que saben mirar con calma. Y tú, tienes de eso.
+            <!-- Pega aquí todo el texto que quieras y se ajustará solo -->
+          </p>
+          <img
+            src="https://img.freepik.com/fotos-premium/imagen-flores-amarillas-palabras-sol-citadas-ella_1191871-60686.jpg"
+            alt="Flores amarillas y frase"
+            class="custom-image2"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const envelope = document.querySelector('.envelope');
+
+    envelope.addEventListener('click', () => {
+      envelope.classList.toggle('flipped');
+      const pressed = envelope.classList.contains('flipped');
+      envelope.setAttribute('aria-pressed', pressed);
+    });
+
+    envelope.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        envelope.classList.toggle('flipped');
+        const pressed = envelope.classList.contains('flipped');
+        envelope.setAttribute('aria-pressed', pressed);
+      }
+    });
+
+    // Bloquear menú contextual y teclas para inspección
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' || (e.ctrlKey && (e.key === 'u' || (e.shiftKey && e.key === 'I')))) {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
