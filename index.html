@@ -12,7 +12,7 @@
 
     body {
       font-family: 'Kaushan Script', cursive;
-      background-color: #f8bbd0; /* Color uniforme sin franjas */
+      background-color: #f8bbd0;
       overflow-x: hidden;
       margin: 0;
       text-align: center;
@@ -27,12 +27,14 @@
       background: rgba(255,255,255,0.95);
       padding: 2rem;
       border-radius: 20px;
+      width: 100%;
       max-width: 800px;
       margin: auto;
       box-shadow: 0 0 20px rgba(0,0,0,0.2);
       position: relative;
       z-index: 10;
       display: none;
+      box-sizing: border-box;
     }
 
     #main-title {
@@ -139,21 +141,20 @@
       100% { transform: translateY(0); opacity: 1; }
     }
 
-    /* Media query para móviles */
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
       .main-card {
-        max-width: 95vw;       /* Ajusta al ancho visible */
-        padding: 1rem 1.5rem;  /* Padding reducido */
-        margin: 1rem auto;     /* Margen arriba y abajo */
-        font-size: 0.9rem;     /* Fuente más pequeña para celulares */
+        padding: 1.5rem 1rem;
+        margin: 1rem auto;
+        width: 95%;
+        font-size: 1rem;
       }
 
       #main-title {
-        font-size: 1.8rem !important;
+        font-size: 1.8rem;
       }
 
       #message-1, #message-2, #secret-message {
-        font-size: 1rem !important;
+        font-size: 1.05rem;
       }
     }
   </style>
@@ -166,7 +167,7 @@
     <p id="message-1">Deseo de corazón que hoy tengas un día maravilloso, rodeada del cariño de tu familia y las personas que más te aprecian. Que cada momento esté lleno de alegría, tranquilidad y buenas energías.</p>
     <p id="message-2">Ojalá este nuevo ciclo en tu vida te traiga aprendizajes valiosos, metas cumplidas, y muchas razones para sonreír. Que no te falten experiencias que te hagan crecer, momentos que se conviertan en recuerdos bonitos, y logros que te llenen de satisfacción y orgullo.</p>
     <div id="secret-message">Aunque no hablemos con frecuencia, quiero que sepas que te tengo un aprecio sincero y te deseo lo mejor, no solo hoy, sino siempre. Que la vida te regale muchas bendiciones y que cada paso que des te acerque a lo que sueñas.  
-    <br /><br />Un fuerte abrazo a la distancia. 🫂🤗</div>
+    <br><br>Un fuerte abrazo a la distancia. 🫂🤗</div>
     <button id="closeBtn" onclick="sayGoodbye(this)">¡Siguiente, Nao!✨</button>
   </div>
 
@@ -272,3 +273,4 @@
   </script>
 </body>
 </html>
+
