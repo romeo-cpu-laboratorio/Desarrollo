@@ -12,9 +12,9 @@
 
     body {
       font-family: 'Kaushan Script', cursive;
-      background-color: #f8bbd0; /* Color uniforme sin franjas */
-      overflow-x: hidden;
+      background: linear-gradient(to bottom, #f8bbd0 50%, #fff0f5 50%);
       margin: 0;
+      overflow-x: hidden;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -27,7 +27,7 @@
       background: rgba(255,255,255,0.95);
       padding: 2rem;
       border-radius: 20px;
-      max-width: 900px; /* Más ancho para líneas más largas */
+      max-width: 800px;
       margin: auto;
       box-shadow: 0 0 20px rgba(0,0,0,0.2);
       position: relative;
@@ -47,7 +47,8 @@
       color: #6a1b9a;
       opacity: 0;
       margin: 1rem;
-      max-width: 100%;
+      text-align: justify;
+      line-height: 1.5;
     }
 
     #secret-message {
@@ -105,11 +106,6 @@
       100% { transform: scale(1); }
     }
 
-    @keyframes zoomInFast {
-      0% { opacity: 0; transform: scale(0); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
     @keyframes float {
       0% { transform: translateY(0); }
       50% { transform: translateY(-20px); }
@@ -117,16 +113,8 @@
     }
 
     @keyframes explodeOut {
-      0% {
-        opacity: 1;
-        transform: scale(1) rotate(0deg);
-        filter: blur(0);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(1.8) rotate(30deg);
-        filter: blur(12px);
-      }
+      0% { opacity: 1; transform: scale(1) rotate(0deg); filter: blur(0); }
+      100% { opacity: 0; transform: scale(1.8) rotate(30deg); filter: blur(12px); }
     }
 
     @keyframes swing {
@@ -146,20 +134,11 @@
 
   <div class="main-card" id="main-card">
     <h1 id="main-title">🎉🥳 ¡Feliz y bendecido cumpleaños, Nao! 🎂</h1>
-    <p id="message-1">
-      Deseo de corazón que hoy tengas un día maravilloso, lleno de alegría, rodeada del cariño de tu familia y de todas las personas que más te aprecian.
-    </p>
-    <p id="message-2">
-      Ojalá que este nuevo ciclo en tu vida te traiga aprendizajes valiosos, metas cumplidas y muchas razones para sonreír. Que no te falten experiencias que te hagan crecer, momentos que se conviertan en recuerdos bonitos y logros que te llenen de satisfacción y orgullo.
-    </p>
-    <div id="secret-message">
-      Aunque no hablemos con frecuencia, quiero que sepas que te tengo un aprecio sincero y te deseo lo mejor, no solo hoy, sino siempre. Que la vida te regale muchas bendiciones y que cada paso que des te acerque a lo que sueñas.
-      <br><br>Un fuerte abrazo a la distancia. 🫂🤗
-    </div>
+    <p id="message-1">Deseo de corazón que hoy tengas un día maravilloso, rodeada del cariño de tu familia y las personas que más te aprecian. Que cada momento esté lleno de alegría, tranquilidad y buenas energías.</p>
+    <p id="message-2">Ojalá este nuevo ciclo en tu vida te traiga aprendizajes valiosos, metas cumplidas, y muchas razones para sonreír. Que no te falten experiencias que te hagan crecer, momentos que se conviertan en recuerdos bonitos, y logros que te llenen de satisfacción y orgullo.</p>
+    <div id="secret-message">Aunque no hablemos con frecuencia, quiero que sepas que te tengo un aprecio sincero y te deseo lo mejor, no solo hoy, sino siempre. Que la vida te regale muchas bendiciones y que cada paso que des te acerque a lo que sueñas.<br><br>Un fuerte abrazo a la distancia. 🫂🤗</div>
     <button id="closeBtn" onclick="sayGoodbye(this)">¡Siguiente, Nao!✨</button>
   </div>
-
-  <canvas class="confetti"></canvas>
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
@@ -169,22 +148,9 @@
       confetti({ particleCount: 300, spread: 360, origin: { y: Math.random() * 0.6 } });
     }
 
-    function fireworksEffect() {
-      const duration = 3000;
-      const animationEnd = Date.now() + duration;
-      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
-      const interval = setInterval(() => {
-        const timeLeft = animationEnd - Date.now();
-        if (timeLeft <= 0) return clearInterval(interval);
-        const particleCount = 70 * (timeLeft / duration);
-        confetti({ ...defaults, particleCount, origin: { x: Math.random() * 0.4 + 0.1, y: Math.random() - 0.2 } });
-        confetti({ ...defaults, particleCount, origin: { x: Math.random() * 0.3 + 0.6, y: Math.random() - 0.2 } });
-      }, 200);
-    }
-
     function generateBalloons() {
       const colors = ['#e91e63', '#f06292', '#fdd835', '#81c784', '#4fc3f7', '#ba68c8'];
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 40; i++) {
         const balloon = document.createElement('div');
         balloon.className = 'balloon';
         balloon.style.left = `${Math.random() * 90}%`;
@@ -226,14 +192,12 @@
       const card = document.getElementById("main-card");
       card.style.animation = "explodeOut 1s ease forwards";
       setTimeout(() => {
-        fireworksEffect();
-        card.remove();
         const message = document.createElement('div');
         message.innerText = '🫶Con cariño, Rudy 🤗';
         message.style.fontSize = '2.4rem';
         message.style.color = '#6a1b9a';
         message.style.fontFamily = "'Kaushan Script', cursive";
-        message.style.margin = '80px auto 0';
+        message.style.margin = '40px auto 0';
         message.style.animation = 'fallDown 1s ease-out forwards, swing 2s infinite ease-in-out';
         message.style.opacity = 0;
         message.style.transform = 'translateY(-200px)';
@@ -255,9 +219,11 @@
         message.appendChild(balloon1);
         message.appendChild(balloon2);
         document.body.appendChild(message);
+        card.remove();
         intervalId = setInterval(confettiBoom, 1000);
       }, 1000);
     }
   </script>
 </body>
 </html>
+
