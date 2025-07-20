@@ -16,11 +16,6 @@
       overflow-x: hidden;
       margin: 0;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
     }
 
     .main-card {
@@ -29,7 +24,7 @@
       border-radius: 20px;
       width: 100%;
       max-width: 800px;
-      margin: auto;
+      margin: 2rem auto;
       box-shadow: 0 0 20px rgba(0,0,0,0.2);
       position: relative;
       z-index: 10;
@@ -144,9 +139,8 @@
     @media (max-width: 600px) {
       .main-card {
         padding: 1.5rem 1rem;
-        margin: 1rem auto;
+        margin: 1rem;
         width: 95%;
-        font-size: 1rem;
       }
 
       #main-title {
@@ -159,15 +153,14 @@
     }
   </style>
 </head>
-<body>
+<body style="display: block;">
   <button class="secret-btn" onclick="startCelebration()">✨ ¡Haz clic, Nao! ✨</button>
 
   <div class="main-card" id="main-card">
     <h1 id="main-title">🎉🥳 ¡Feliz y bendecido cumpleaños, Nao! 🎂</h1>
     <p id="message-1">Deseo de corazón que hoy tengas un día maravilloso, rodeada del cariño de tu familia y las personas que más te aprecian. Que cada momento esté lleno de alegría, tranquilidad y buenas energías.</p>
     <p id="message-2">Ojalá este nuevo ciclo en tu vida te traiga aprendizajes valiosos, metas cumplidas, y muchas razones para sonreír. Que no te falten experiencias que te hagan crecer, momentos que se conviertan en recuerdos bonitos, y logros que te llenen de satisfacción y orgullo.</p>
-    <div id="secret-message">Aunque no hablemos con frecuencia, quiero que sepas que te tengo un aprecio sincero y te deseo lo mejor, no solo hoy, sino siempre. Que la vida te regale muchas bendiciones y que cada paso que des te acerque a lo que sueñas.  
-    <br><br>Un fuerte abrazo a la distancia. 🫂🤗</div>
+    <div id="secret-message">Aunque no hablemos con frecuencia, quiero que sepas que te tengo un aprecio sincero y te deseo lo mejor, no solo hoy, sino siempre. Que la vida te regale muchas bendiciones y que cada paso que des te acerque a lo que sueñas.  <br><br>Un fuerte abrazo a la distancia. 🫂🤗</div>
     <button id="closeBtn" onclick="sayGoodbye(this)">¡Siguiente, Nao!✨</button>
   </div>
 
@@ -181,35 +174,8 @@
       confetti({ particleCount: 300, spread: 360, origin: { y: Math.random() * 0.6 } });
     }
 
-    function fireworksEffect() {
-      const duration = 3000;
-      const animationEnd = Date.now() + duration;
-      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
-      const interval = setInterval(() => {
-        const timeLeft = animationEnd - Date.now();
-        if (timeLeft <= 0) return clearInterval(interval);
-        const particleCount = 70 * (timeLeft / duration);
-        confetti({ ...defaults, particleCount, origin: { x: Math.random() * 0.4 + 0.1, y: Math.random() - 0.2 } });
-        confetti({ ...defaults, particleCount, origin: { x: Math.random() * 0.3 + 0.6, y: Math.random() - 0.2 } });
-      }, 200);
-    }
-
-    function generateBalloons() {
-      const colors = ['#e91e63', '#f06292', '#fdd835', '#81c784', '#4fc3f7', '#ba68c8'];
-      for (let i = 0; i < 20; i++) {
-        const balloon = document.createElement('div');
-        balloon.className = 'balloon';
-        balloon.style.left = `${Math.random() * 90}%`;
-        balloon.style.top = `${Math.random() * 60 + 60}px`;
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        balloon.style.background = `radial-gradient(circle at 30% 30%, ${color}, ${color})`;
-        document.body.appendChild(balloon);
-      }
-    }
-
     function startCelebration() {
       document.querySelector('.secret-btn').style.display = 'none';
-      confettiBoom();
       const card = document.getElementById("main-card");
       card.style.display = "block";
       document.getElementById("main-title").style.animation = "fadeIn 2s ease-in-out forwards";
@@ -230,7 +196,6 @@
         document.getElementById("closeBtn").style.display = 'inline-block';
       }, 12000);
       intervalId = setInterval(confettiBoom, 1000);
-      generateBalloons();
     }
 
     function sayGoodbye(button) {
@@ -238,7 +203,6 @@
       const card = document.getElementById("main-card");
       card.style.animation = "explodeOut 1s ease forwards";
       setTimeout(() => {
-        fireworksEffect();
         card.remove();
         const message = document.createElement('div');
         message.innerText = '🫶Con cariño, Rudy 🤗';
@@ -253,19 +217,6 @@
         message.style.position = 'relative';
         message.style.maxWidth = '90%';
         message.style.wordWrap = 'break-word';
-
-        const balloon1 = document.createElement('div');
-        balloon1.className = 'balloon';
-        balloon1.style.top = '-50px';
-        balloon1.style.left = '30%';
-        balloon1.style.background = 'radial-gradient(circle at 30% 30%, #ff80ab, #ff4081)';
-
-        const balloon2 = balloon1.cloneNode();
-        balloon2.style.left = '60%';
-        balloon2.style.background = 'radial-gradient(circle at 30% 30%, #ba68c8, #8e24aa)';
-
-        message.appendChild(balloon1);
-        message.appendChild(balloon2);
         document.body.appendChild(message);
         intervalId = setInterval(confettiBoom, 1000);
       }, 1000);
