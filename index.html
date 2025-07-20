@@ -12,12 +12,10 @@
 
     body {
       font-family: 'Kaushan Script', cursive;
-      background-color: #f8bbd0; /* fondo uniforme, sin franjas */
+      background-color: #f8bbd0; /* Color uniforme sin franjas */
       overflow-x: hidden;
       margin: 0;
       text-align: center;
-
-      /* ubicación del botón igual que en el segundo código */
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -29,7 +27,7 @@
       background: rgba(255,255,255,0.95);
       padding: 2rem;
       border-radius: 20px;
-      max-width: 800px;
+      max-width: 900px; /* Más ancho para líneas más largas */
       margin: auto;
       box-shadow: 0 0 20px rgba(0,0,0,0.2);
       position: relative;
@@ -49,6 +47,7 @@
       color: #6a1b9a;
       opacity: 0;
       margin: 1rem;
+      max-width: 100%;
     }
 
     #secret-message {
@@ -89,8 +88,6 @@
       animation: float 6s ease-in-out infinite;
       will-change: transform;
     }
-
-    /* Animaciones sin cambios */
 
     @keyframes fadeInText {
       from { opacity: 0; transform: translateY(10px); }
@@ -149,10 +146,16 @@
 
   <div class="main-card" id="main-card">
     <h1 id="main-title">🎉🥳 ¡Feliz y bendecido cumpleaños, Nao! 🎂</h1>
-    <p id="message-1">Deseo de corazón que hoy tengas un día maravilloso, rodeada del cariño de tu familia y las personas que más te aprecian. Que cada momento esté lleno de alegría, tranquilidad y buenas energías.</p>
-    <p id="message-2">Ojalá este nuevo ciclo en tu vida te traiga aprendizajes valiosos, metas cumplidas, y muchas razones para sonreír. Que no te falten experiencias que te hagan crecer, momentos que se conviertan en recuerdos bonitos, y logros que te llenen de satisfacción y orgullo.</p>
-    <div id="secret-message">Aunque no hablemos con frecuencia, quiero que sepas que te tengo un aprecio sincero y te deseo lo mejor, no solo hoy, sino siempre. Que la vida te regale muchas bendiciones y que cada paso que des te acerque a lo que sueñas.  
-    <br><br>Un fuerte abrazo a la distancia. 🫂🤗</div>
+    <p id="message-1">
+      Deseo de corazón que hoy tengas un día maravilloso, lleno de alegría, rodeada del cariño de tu familia y de todas las personas que más te aprecian.
+    </p>
+    <p id="message-2">
+      Ojalá que este nuevo ciclo en tu vida te traiga aprendizajes valiosos, metas cumplidas y muchas razones para sonreír. Que no te falten experiencias que te hagan crecer, momentos que se conviertan en recuerdos bonitos y logros que te llenen de satisfacción y orgullo.
+    </p>
+    <div id="secret-message">
+      Aunque no hablemos con frecuencia, quiero que sepas que te tengo un aprecio sincero y te deseo lo mejor, no solo hoy, sino siempre. Que la vida te regale muchas bendiciones y que cada paso que des te acerque a lo que sueñas.
+      <br><br>Un fuerte abrazo a la distancia. 🫂🤗
+    </div>
     <button id="closeBtn" onclick="sayGoodbye(this)">¡Siguiente, Nao!✨</button>
   </div>
 
@@ -258,5 +261,3 @@
   </script>
 </body>
 </html>
-
-
