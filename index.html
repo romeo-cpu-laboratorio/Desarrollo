@@ -1,43 +1,39 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🎉 Feliz Cumpleaños, Nao</title>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Kaushan+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
   <style>
     :root {
       font-size: clamp(14px, 1.8vw + 1.2vh, 22px);
     }
 
     body {
-      font-family: 'Quicksand', sans-serif;
-      background: radial-gradient(circle at center, #ffe6f0 0%, #f8bbd0 100%);
+      font-family: 'Kaushan Script', cursive;
+      background-color: #f8bbd0; /* Color uniforme sin franjas */
       overflow-x: hidden;
       margin: 0;
       text-align: center;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
-      justify-content: flex-start;
-      padding: 2rem 1rem 6rem; /* espacio abajo para botón fijo */
-      box-sizing: border-box;
+      min-height: 100vh;
     }
 
     .main-card {
       background: rgba(255,255,255,0.95);
-      padding: clamp(1.5rem, 2vw, 2.5rem);
+      padding: 2rem;
       border-radius: 20px;
       max-width: 800px;
-      width: 90%;
       margin: auto;
       box-shadow: 0 0 20px rgba(0,0,0,0.2);
       position: relative;
       z-index: 10;
       display: none;
-      box-sizing: border-box;
-      text-align: center;
     }
 
     #main-title {
@@ -45,16 +41,13 @@
       color: #d81b60;
       margin-bottom: 1.5rem;
       opacity: 0;
-      font-family: 'Kaushan Script', cursive;
     }
 
     #message-1, #message-2, #secret-message {
-      font-size: clamp(1rem, 3vw, 1.6rem);
+      font-size: clamp(1.1rem, 3.5vw, 1.6rem);
       color: #6a1b9a;
       opacity: 0;
-      margin: 1rem 0;
-      font-family: 'Kaushan Script', cursive;
-      line-height: 1.4;
+      margin: 1rem;
     }
 
     #secret-message {
@@ -63,59 +56,26 @@
       display: none;
     }
 
-    .secret-btn {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
+    .secret-btn, #closeBtn {
+      margin: 2rem auto;
       display: block;
-      padding: clamp(0.8rem, 2vw, 1.2rem) clamp(1.5rem, 4vw, 2.5rem);
+      padding: 1rem 2rem;
       font-size: clamp(1rem, 4vw, 1.4rem);
-      background: radial-gradient(circle at center, #ff5c8d, #d81b60);
+      background: linear-gradient(to right, #ff4081, #ff80ab);
       color: white;
       border: none;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 0 15px #d81b60;
+      box-shadow: 0 0 20px #ff80ab;
       animation: pulse 1.5s infinite;
       max-width: 90%;
-      width: auto;
-      font-family: 'Quicksand', sans-serif;
-      z-index: 1000;
-      box-sizing: border-box;
-      user-select: none;
-      transition: filter 0.3s ease;
-    }
-    .secret-btn:hover {
-      filter: brightness(1.1);
-    }
-    .secret-btn:active {
-      filter: brightness(0.9);
+      font-family: 'Kaushan Script', cursive;
     }
 
     #closeBtn {
-      margin: 2rem auto 0;
-      display: none;
-      padding: clamp(0.8rem, 2vw, 1.2rem) clamp(1.5rem, 4vw, 2.5rem);
-      font-size: clamp(1rem, 4vw, 1.4rem);
       background: linear-gradient(to right, #8e24aa, #ce93d8);
       animation: pulse 2s infinite;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      box-shadow: 0 0 20px #ce93d8;
-      max-width: 90%;
-      width: auto;
-      font-family: 'Quicksand', sans-serif;
-      box-sizing: border-box;
-      user-select: none;
-      transition: filter 0.3s ease;
-    }
-    #closeBtn:hover {
-      filter: brightness(1.1);
-    }
-    #closeBtn:active {
-      filter: brightness(0.9);
+      display: none;
     }
 
     .balloon {
@@ -295,3 +255,4 @@
   </script>
 </body>
 </html>
+
