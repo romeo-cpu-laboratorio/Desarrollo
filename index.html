@@ -21,6 +21,7 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      position: relative;
     }
 
     .main-card {
@@ -79,15 +80,13 @@
       display: none;
     }
 
-    .balloon {
+    .balloon-img {
       position: fixed;
-      z-index: 0;
-      width: 40px;
-      height: 60px;
-      border-radius: 50% 50% 45% 45%;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      width: 60px;
+      height: auto;
       animation: float 6s ease-in-out infinite;
-      will-change: transform;
+      z-index: 0;
+      pointer-events: none;
     }
 
     @keyframes fadeInText {
@@ -149,14 +148,20 @@
     }
 
     function generateBalloons() {
-      const colors = ['#e91e63', '#f06292', '#fdd835', '#81c784', '#4fc3f7', '#ba68c8'];
+      const urls = [
+        'https://raw.githubusercontent.com/juanmnl/globo-img/main/balloon_pink.png',
+        'https://raw.githubusercontent.com/juanmnl/globo-img/main/balloon_blue.png',
+        'https://raw.githubusercontent.com/juanmnl/globo-img/main/balloon_yellow.png',
+        'https://raw.githubusercontent.com/juanmnl/globo-img/main/balloon_purple.png',
+        'https://raw.githubusercontent.com/juanmnl/globo-img/main/balloon_green.png'
+      ];
       for (let i = 0; i < 30; i++) {
-        const balloon = document.createElement('div');
-        balloon.className = 'balloon';
+        const balloon = document.createElement('img');
+        balloon.src = urls[i % urls.length];
+        balloon.alt = 'Globo decorativo';
+        balloon.className = 'balloon-img';
         balloon.style.left = `${Math.random() * 90}%`;
         balloon.style.top = `${Math.random() * 60 + 60}px`;
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        balloon.style.background = `radial-gradient(circle at 30% 30%, ${color}, ${color})`;
         document.body.appendChild(balloon);
       }
     }
@@ -206,18 +211,6 @@
         message.style.maxWidth = '90%';
         message.style.wordWrap = 'break-word';
 
-        const balloon1 = document.createElement('div');
-        balloon1.className = 'balloon';
-        balloon1.style.top = '-50px';
-        balloon1.style.left = '30%';
-        balloon1.style.background = 'radial-gradient(circle at 30% 30%, #ff80ab, #ff4081)';
-
-        const balloon2 = balloon1.cloneNode();
-        balloon2.style.left = '60%';
-        balloon2.style.background = 'radial-gradient(circle at 30% 30%, #ba68c8, #8e24aa)';
-
-        message.appendChild(balloon1);
-        message.appendChild(balloon2);
         document.body.appendChild(message);
         card.remove();
         intervalId = setInterval(confettiBoom, 1000);
@@ -226,3 +219,4 @@
   </script>
 </body>
 </html>
+
