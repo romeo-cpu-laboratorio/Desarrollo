@@ -2,35 +2,29 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🎉 Feliz Cumpleaños, Nao</title>
-  <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
-      font-size: clamp(14px, 1.5vw + 1vh, 20px);
+      font-size: clamp(14px, 1.8vw + 1.2vh, 22px);
     }
 
     body {
-      font-family: 'Kaushan Script', cursive;
-      background: linear-gradient(to bottom, #f8bbd0 50%, #fff0f5 50%);
-      margin: 0;
+      font-family: 'Dancing Script', cursive;
+      background: linear-gradient(to top left, #fff0f5, #f8bbd0);
       overflow-x: hidden;
+      margin: 0;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      position: relative;
     }
 
     .main-card {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 1.5rem 2rem;
+      background: rgba(255,255,255,0.95);
+      padding: 2rem;
       border-radius: 20px;
       max-width: 800px;
       margin: auto;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
       position: relative;
       z-index: 10;
       display: none;
@@ -39,27 +33,25 @@
     #main-title {
       font-size: clamp(2rem, 5vw, 3rem);
       color: #d81b60;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       opacity: 0;
     }
 
     #message-1, #message-2, #secret-message {
-      font-size: clamp(1rem, 3vw, 1.5rem);
+      font-size: clamp(1.1rem, 3.5vw, 1.6rem);
       color: #6a1b9a;
       opacity: 0;
-      margin: 0.5rem 0;
-      text-align: justify;
-      line-height: 1.3;
+      margin: 1rem;
     }
 
     #secret-message {
       color: #4a148c;
-      margin-top: 1rem;
+      margin-top: 1.5rem;
       display: none;
     }
 
     .secret-btn, #closeBtn {
-      margin: 2rem auto 1rem;
+      margin: 2rem auto;
       display: block;
       padding: 1rem 2rem;
       font-size: clamp(1rem, 4vw, 1.4rem);
@@ -71,7 +63,6 @@
       box-shadow: 0 0 20px #ff80ab;
       animation: pulse 1.5s infinite;
       max-width: 90%;
-      font-family: 'Kaushan Script', cursive;
     }
 
     #closeBtn {
@@ -83,32 +74,12 @@
     .balloon {
       position: fixed;
       z-index: 0;
-      width: clamp(58px, 7.25vw, 87px);
-      height: clamp(58px, 7.25vw, 87px);
-      border-radius: 50%;
-      border: 1.5px solid rgba(0, 0, 0, 0.15);
-      box-shadow:
-        inset -4px -6px 10px rgba(255, 255, 255, 0.95),
-        0 3px 10px rgba(0, 0, 0, 0.15);
+      width: 40px;
+      height: 60px;
+      border-radius: 50% 50% 45% 45%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       animation: float 6s ease-in-out infinite;
       will-change: transform;
-      overflow: visible;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .balloon::before {
-      content: '';
-      position: absolute;
-      top: 8%;
-      left: 12%;
-      width: 10px;
-      height: 18px;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), transparent);
-      border-radius: 50%;
-      filter: blur(2px);
-      pointer-events: none;
-      z-index: 2;
     }
 
     @keyframes fadeInText {
@@ -127,6 +98,11 @@
       100% { transform: scale(1); }
     }
 
+    @keyframes zoomInFast {
+      0% { opacity: 0; transform: scale(0); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
     @keyframes float {
       0% { transform: translateY(0); }
       50% { transform: translateY(-20px); }
@@ -134,8 +110,16 @@
     }
 
     @keyframes explodeOut {
-      0% { opacity: 1; transform: scale(1) rotate(0deg); filter: blur(0); }
-      100% { opacity: 0; transform: scale(1.8) rotate(30deg); filter: blur(12px); }
+      0% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+        filter: blur(0);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.8) rotate(30deg);
+        filter: blur(12px);
+      }
     }
 
     @keyframes swing {
@@ -148,21 +132,6 @@
       0% { transform: translateY(-200px); opacity: 0; }
       100% { transform: translateY(0); opacity: 1; }
     }
-
-    .final-message {
-      font-size: 2.4rem;
-      color: #6a1b9a;
-      font-family: 'Kaushan Script', cursive;
-      position: fixed;
-      top: 49.8%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      width: 100%;
-      animation: fadeIn 2s ease-out, swing 2s infinite ease-in-out;
-      z-index: 999;
-      pointer-events: none;
-    }
   </style>
 </head>
 <body>
@@ -172,9 +141,12 @@
     <h1 id="main-title">🎉🥳 ¡Feliz y bendecido cumpleaños, Nao! 🎂</h1>
     <p id="message-1">Deseo de corazón que hoy tengas un día maravilloso, rodeada del cariño de tu familia y las personas que más te aprecian. Que cada momento esté lleno de alegría, tranquilidad y buenas energías.</p>
     <p id="message-2">Ojalá este nuevo ciclo en tu vida te traiga aprendizajes valiosos, metas cumplidas, y muchas razones para sonreír. Que no te falten experiencias que te hagan crecer, momentos que se conviertan en recuerdos bonitos, y logros que te llenen de satisfacción y orgullo.</p>
-    <div id="secret-message"><div style="text-align:center;">Aunque no hablemos con frecuencia, quiero que sepas que te tengo un aprecio sincero y te deseo lo mejor, no solo hoy, sino siempre. Que la vida te regale muchas bendiciones y que cada paso que des te acerque a lo que sueñas.<br><br>Un fuerte abrazo a la distancia. 🫂🤗</div></div>
+    <div id="secret-message">Aunque no hablemos con frecuencia, quiero que sepas que te tengo un aprecio sincero y te deseo lo mejor, no solo hoy, sino siempre. Que la vida te regale muchas bendiciones y que cada paso que des te acerque a lo que sueñas.  
+    <br><br>Un fuerte abrazo a la distancia. 🫂🤗</div>
     <button id="closeBtn" onclick="sayGoodbye(this)">¡Siguiente, Nao!✨</button>
   </div>
+
+  <canvas class="confetti"></canvas>
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
@@ -184,24 +156,28 @@
       confetti({ particleCount: 300, spread: 360, origin: { y: Math.random() * 0.6 } });
     }
 
+    function fireworksEffect() {
+      const duration = 3000;
+      const animationEnd = Date.now() + duration;
+      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
+      const interval = setInterval(() => {
+        const timeLeft = animationEnd - Date.now();
+        if (timeLeft <= 0) return clearInterval(interval);
+        const particleCount = 70 * (timeLeft / duration);
+        confetti({ ...defaults, particleCount, origin: { x: Math.random() * 0.4 + 0.1, y: Math.random() - 0.2 } });
+        confetti({ ...defaults, particleCount, origin: { x: Math.random() * 0.3 + 0.6, y: Math.random() - 0.2 } });
+      }, 200);
+    }
+
     function generateBalloons() {
-      const colors = [
-        'rgba(219, 20, 60, 0.95)', 'rgba(199, 21, 133, 0.95)', 'rgba(186, 85, 211, 0.95)',
-        'rgba(218, 112, 214, 0.95)', 'rgba(255, 20, 147, 0.95)', 'rgba(255, 0, 255, 0.95)',
-        'rgba(138, 43, 226, 0.95)', 'rgba(147, 112, 219, 0.95)', 'rgba(123, 104, 238, 0.95)',
-        'rgba(72, 209, 204, 0.95)', 'rgba(255, 99, 71, 0.95)', 'rgba(255, 140, 0, 0.95)',
-      ];
-      const balloonCount = 350;
-      const minTop = 5;
-      const maxTop = 180;
-      for (let i = 0; i < balloonCount; i++) {
+      const colors = ['#e91e63', '#f06292', '#fdd835', '#81c784', '#4fc3f7', '#ba68c8'];
+      for (let i = 0; i < 20; i++) {
         const balloon = document.createElement('div');
         balloon.className = 'balloon';
-        balloon.style.left = `${Math.random() * 100}%`;
-        balloon.style.top = `${Math.random() * (maxTop - minTop) + minTop}px`;
-        const color = colors[i % colors.length];
-        balloon.style.background = `radial-gradient(circle at 30% 30%, ${color}, rgba(255, 255, 255, 0.85))`;
-        balloon.style.animationDuration = (4 + Math.random() * 3) + 's';
+        balloon.style.left = `${Math.random() * 90}%`;
+        balloon.style.top = `${Math.random() * 60 + 60}px`;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        balloon.style.background = `radial-gradient(circle at 30% 30%, ${color}, ${color})`;
         document.body.appendChild(balloon);
       }
     }
@@ -237,15 +213,38 @@
       const card = document.getElementById("main-card");
       card.style.animation = "explodeOut 1s ease forwards";
       setTimeout(() => {
+        fireworksEffect();
+        card.remove();
         const message = document.createElement('div');
         message.innerText = '🫶Con cariño, Rudy 🤗';
-        message.className = 'final-message';
+        message.style.fontSize = '2.4rem';
+        message.style.color = '#6a1b9a';
+        message.style.fontFamily = "'Dancing Script', cursive";
+        message.style.margin = '80px auto 0';
+        message.style.animation = 'fallDown 1s ease-out forwards, swing 2s infinite ease-in-out';
+        message.style.opacity = 0;
+        message.style.transform = 'translateY(-200px)';
+        message.style.textAlign = 'center';
+        message.style.position = 'relative';
+        message.style.maxWidth = '90%';
+        message.style.wordWrap = 'break-word';
+
+        const balloon1 = document.createElement('div');
+        balloon1.className = 'balloon';
+        balloon1.style.top = '-50px';
+        balloon1.style.left = '30%';
+        balloon1.style.background = 'radial-gradient(circle at 30% 30%, #ff80ab, #ff4081)';
+
+        const balloon2 = balloon1.cloneNode();
+        balloon2.style.left = '60%';
+        balloon2.style.background = 'radial-gradient(circle at 30% 30%, #ba68c8, #8e24aa)';
+
+        message.appendChild(balloon1);
+        message.appendChild(balloon2);
         document.body.appendChild(message);
-        card.remove();
         intervalId = setInterval(confettiBoom, 1000);
       }, 1000);
     }
   </script>
 </body>
 </html>
-
