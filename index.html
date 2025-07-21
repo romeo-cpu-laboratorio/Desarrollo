@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -84,8 +85,8 @@
       position: fixed;
       z-index: 0;
       width: 50px;
-      height: 50px;
-      border-radius: 50%;
+      height: 60px;
+      border-radius: 50% / 60%;
       border: 1.5px solid rgba(0, 0, 0, 0.2);
       box-shadow:
         inset -4px -6px 10px rgba(255, 255, 255, 0.85),
@@ -169,33 +170,19 @@
 
     function generateBalloons() {
       const colors = [
-        'rgba(218, 0, 96, 0.95)',    // fucsia fuerte
-        'rgba(138, 43, 226, 0.95)',  // azul violeta
-        'rgba(255, 20, 147, 0.95)',  // deep pink
-        'rgba(255, 105, 180, 0.95)', // hot pink
-        'rgba(255, 69, 0, 0.95)',    // rojo anaranjado
-        'rgba(186, 85, 211, 0.95)',  // medium orchid
-        'rgba(199, 21, 133, 0.95)',  // medium violet red
-        'rgba(64, 224, 208, 0.9)',   // turquesa
-        'rgba(255, 0, 255, 0.95)',   // magenta
-        'rgba(255, 127, 80, 0.95)'   // coral
+        'rgba(255, 182, 193, 0.95)',  // rosa claro
+        'rgba(135, 206, 250, 0.95)',  // azul claro (skyblue)
+        'rgba(186, 85, 211, 0.95)',   // morado claro (medium orchid)
+        'rgba(222, 184, 135, 0.95)',  // marrón claro (burlywood)
+        'rgba(255, 255, 102, 0.95)'   // amarillo claro (light yellow)
       ];
-
-      // Distribución horizontal completa (0% a 100%)
-      // Distribución vertical solo en la parte superior (10px a 150px)
-      const minTop = 10;
-      const maxTop = 150;
-      const balloonCount = 120;
-
-      for (let i = 0; i < balloonCount; i++) {
+      for (let i = 0; i < 30; i++) {
         const balloon = document.createElement('div');
         balloon.className = 'balloon';
-
-        balloon.style.left = `${Math.random() * 100}%`;
-        balloon.style.top = `${Math.random() * (maxTop - minTop) + minTop}px`;
+        balloon.style.left = `${Math.random() * 90}%`;
+        balloon.style.top = `${Math.random() * 60 + 60}px`;
         const color = colors[i % colors.length];
         balloon.style.background = `radial-gradient(circle at 30% 30%, ${color}, rgba(255, 255, 255, 0.7))`;
-        balloon.style.animationDuration = (5 + Math.random() * 3) + 's';
         document.body.appendChild(balloon);
       }
     }
@@ -265,4 +252,3 @@
   </script>
 </body>
 </html>
-
