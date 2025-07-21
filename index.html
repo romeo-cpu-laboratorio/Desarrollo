@@ -80,13 +80,33 @@
       display: none;
     }
 
-    .balloon-img {
+    .balloon {
       position: fixed;
-      width: 60px;
-      height: auto;
-      animation: float 6s ease-in-out infinite;
       z-index: 0;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(0, 0, 0, 0.2);
+      box-shadow:
+        inset -4px -6px 10px rgba(255, 255, 255, 0.85),
+        0 3px 10px rgba(0, 0, 0, 0.1);
+      animation: float 6s ease-in-out infinite;
+      will-change: transform;
+      overflow: visible;
+    }
+
+    .balloon::before {
+      content: '';
+      position: absolute;
+      top: 8%;
+      left: 12%;
+      width: 10px;
+      height: 18px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), transparent);
+      border-radius: 50%;
+      filter: blur(1.8px);
       pointer-events: none;
+      z-index: 2;
     }
 
     @keyframes fadeInText {
@@ -148,20 +168,48 @@
     }
 
     function generateBalloons() {
-      const urls = [
-        'https://raw.githubusercontent.com/juanmnl/globo-img/main/balloon_pink.png',
-        'https://raw.githubusercontent.com/juanmnl/globo-img/main/balloon_blue.png',
-        'https://raw.githubusercontent.com/juanmnl/globo-img/main/balloon_yellow.png',
-        'https://raw.githubusercontent.com/juanmnl/globo-img/main/balloon_purple.png',
-        'https://raw.githubusercontent.com/juanmnl/globo-img/main/balloon_green.png'
+      const colors = [
+        'rgba(218, 0, 96, 0.95)',    // fucsia fuerte
+        'rgba(138, 43, 226, 0.95)',  // azul violeta
+        'rgba(255, 20, 147, 0.95)',  // deep pink
+        'rgba(255, 105, 180, 0.95)', // hot pink
+        'rgba(255, 69, 0, 0.95)',    // rojo anaranjado
+        'rgba(186, 85, 211, 0.95)',  // medium orchid
+        'rgba(199, 21, 133, 0.95)',  // medium violet red
+        'rgba(64, 224, 208, 0.9)',   // turquesa
+        'rgba(255, 0, 255, 0.95)',   // magenta
+        'rgba(255, 127, 80, 0.95)'   // coral
       ];
-      for (let i = 0; i < 30; i++) {
-        const balloon = document.createElement('img');
-        balloon.src = urls[i % urls.length];
-        balloon.alt = 'Globo decorativo';
-        balloon.className = 'balloon-img';
-        balloon.style.left = `${Math.random() * 90}%`;
-        balloon.style.top = `${Math.random() * 60 + 60}px`;
+
+      // Limites para dejar área libre en el centro para el texto (de 20% a 80% en ancho y alto)
+      const minX1 = 0;    // izquierda margen
+      const maxX1 = 20;   // margen izquierda área texto
+
+      const minX2 = 80;   // margen derecha área texto
+      const maxX2 = 100;  // margen derecha pantalla
+
+      const minY = 60;    // globos aparecen de 60px hacia abajo para no tapar boton arriba
+      const maxY = window.innerHeight - 50;
+
+      for (let i = 0; i < 120; i++) {
+        const balloon = document.createElement('div');
+        balloon.className = 'balloon';
+
+        // Distribuir globos evitando el centro 20%-80% en horizontal y 0%-100% vertical
+        let leftPercent;
+        if (Math.random() < 0.5) {
+          // lado izquierdo
+          leftPercent = Math.random() * (maxX1 - minX1) + minX1;
+        } else {
+          // lado derecho
+          leftPercent = Math.random() * (maxX2 - minX2) + minX2;
+        }
+
+        balloon.style.left = `${leftPercent}%`;
+        balloon.style.top = `${Math.random() * (maxY - minY) + minY}px`;
+        const color = colors[i % colors.length];
+        balloon.style.background = `radial-gradient(circle at 30% 30%, ${color}, rgba(255, 255, 255, 0.7))`;
+        balloon.style.animationDuration = (5 + Math.random() * 3) + 's';
         document.body.appendChild(balloon);
       }
     }
@@ -211,6 +259,18 @@
         message.style.maxWidth = '90%';
         message.style.wordWrap = 'break-word';
 
+        const balloon1 = document.createElement('div');
+        balloon1.className = 'balloon';
+        balloon1.style.top = '-50px';
+        balloon1.style.left = '30%';
+        balloon1.style.background = 'radial-gradient(circle at 30% 30%, rgba(255,182,193,0.95), rgba(255,105,180,0.7))';
+
+        const balloon2 = balloon1.cloneNode();
+        balloon2.style.left = '60%';
+        balloon2.style.background = 'radial-gradient(circle at 30% 30%, rgba(186,85,211,0.95), rgba(123,94,60,0.7))';
+
+        message.appendChild(balloon1);
+        message.appendChild(balloon2);
         document.body.appendChild(message);
         card.remove();
         intervalId = setInterval(confettiBoom, 1000);
