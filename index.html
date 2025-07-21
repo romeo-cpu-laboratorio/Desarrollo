@@ -153,10 +153,10 @@
       for (let i = 0; i < 30; i++) {
         const balloon = document.createElement('div');
         balloon.className = 'balloon';
-        balloon.style.left = ${Math.random() * 90}%;
-        balloon.style.top = ${Math.random() * 60 + 60}px;
+        balloon.style.left = `${Math.random() * 90}%`;
+        balloon.style.top = `${Math.random() * 60 + 60}px`;
         const color = colors[Math.floor(Math.random() * colors.length)];
-        balloon.style.background = radial-gradient(circle at 30% 30%, ${color}, ${color});
+        balloon.style.background = `radial-gradient(circle at 30% 30%, ${color}, ${color})`;
         document.body.appendChild(balloon);
       }
     }
